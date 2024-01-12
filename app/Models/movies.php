@@ -1,11 +1,29 @@
 <?php
 
+// app/Models/Movie.php
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class movies extends Model
+class Movie extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'title', 'slug', 'synopsis', 'year', 'poster', 'director',
+    ];
+
+    public function genres()
+    {
+        return $this->hasMany(MovieGenre::class);
+    }
+
+    public function ratings()
+    {
+        return $this->hasMany(UserMovieRating::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(MovieComment::class);
+    }
 }
