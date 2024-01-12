@@ -1,35 +1,26 @@
 <?php
+// database/migrations/YYYY_MM_DD_create_profiles_table.php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateProfilesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-        Schema::dropIfExists('profiles');
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->foreignId('user_id')->constrained('users');
             $table->date('birthday');
-            $table->string('avatar')->default('default.png');
-            $table->string('about')->nullable();
-
-            // Define the foreign key relationship
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('avatar')->nullable();
+            $table->text('about_me');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('profiles');
     }
-};
+}

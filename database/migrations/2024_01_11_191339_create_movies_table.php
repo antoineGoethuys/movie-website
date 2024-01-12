@@ -1,34 +1,28 @@
 <?php
+// database/migrations/YYYY_MM_DD_create_movies_table.php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateMoviesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-        Schema::dropIfExists('movies');
         Schema::create('movies', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique();
-            $table->mediumText('synopsis');
-            $table->year('year');
+            $table->string('description');
+            $table->string('year');
+            $table->integer('duration');
             $table->string('poster')->nullable();
-            $table->string('director');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('movies');
     }
-};
+}
+

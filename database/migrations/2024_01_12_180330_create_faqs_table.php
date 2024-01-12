@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('movie_genres');
-        Schema::create('movie_genres', function (Blueprint $table) {
+        Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('movie_id');
-            $table->string('genre');
-
-            // Define the foreign key relationship
-            $table->foreign('movie_id')->references('id')->on('movies');
+            $table->string('question');
+            $table->longText('answer');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('movie_genres');
+        Schema::dropIfExists('faqs');
     }
 };
