@@ -20,11 +20,6 @@ class Movie extends Model
         return $this->hasMany(UserMovieRating::class);
     }
 
-    public function genres()
-    {
-        return $this->hasMany(MovieGenre::class);
-    }
-
     public function comments()
     {
         return $this->hasMany(MovieComment::class);

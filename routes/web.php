@@ -28,7 +28,7 @@ Route::prefix('movies')
     ->group(function () {
         Route::get("/", 'index')->name("all");
 
-        Route::get("/new", 'create')->name("create");
+        Route::get("/new", 'create')->name("create")->middleware('auth');
         Route::post("/new", 'store');
 
         Route::get('{slug}-{movie}', 'show')->where([
@@ -50,3 +50,8 @@ Route::prefix('admin')
             return view('admin.users');
         })->name("users");
     });
+
+    Route::get('/login', [\App\Http\Controllers\Auth\AuthControler::class, 'login'])->name('auth.login');
+    Route::post('/login', [\App\Http\Controllers\Auth\AuthControler::class, 'doLogin']);
+
+    Route::delete('/logout', [\App\Http\Controllers\Auth\AuthControler::class, 'logout'])->name('auth.logout');

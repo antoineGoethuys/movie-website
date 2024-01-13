@@ -16,6 +16,7 @@ class CreateMoviesTable extends Migration
             $table->string('year');
             $table->integer('duration');
             $table->string('poster')->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }

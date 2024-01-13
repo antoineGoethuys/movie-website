@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\MovieFilterRequest;
-use App\Models\movies;
-use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+
+use App\Models\Movie as Movie;
 
 class movieController extends Controller
 {
@@ -23,10 +18,10 @@ class movieController extends Controller
 
     public function store(Request $request)
     {
-        $movie = movies::create([
+        $movie = Movie::create([
             "title" => $request->input("title"),
             "description" => $request->input("description"),
-            "slug" => \Str::slug($request->input("title")),
+            "slug" => Str::slug($request->input("title")),
             "image" => $request->input("image"),
             "duration" => $request->input("duration"),
             "age_limit" => $request->input("age_limit"),
@@ -37,14 +32,13 @@ class movieController extends Controller
         ])->with("success", "Movie created successfully");
     }
 
-    public function index(): View
+    public function index()
     {
-
         return view('movies.moviesList', [
-            "movies" => movies::with('genre', 'review')->paginate(10)
+            "movies" => Movie::paginate(10)
         ]);
-//        return movie::paginate(10);
     }
+
     public function show(string $slug,Movie $movie): Response | View
     {
         if ($movie->slug !== $slug) {
