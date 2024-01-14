@@ -6,37 +6,42 @@
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="img-fluid" style="max-width: 120px; max-height: 120px;"/>
             </a>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-8">
             <ul class="list-inline">
                 <li class="list-inline-item"><a href="/" style="color: #F6D8AE !important; text-decoration: none;">Home</a></li>
                 <li class="list-inline-item"><a href="/movies" style="color: #F6D8AE !important; text-decoration: none;">Movies</a></li>
-                <li class="list-inline-item"><a href="/news" style="color: #F6D8AE !important; text-decoration: none;">News</a></li>
+                <li class="list-inline-item"><a href="/profile" style="color: #F6D8AE !important; text-decoration: none;">Profile</a></li>
+                @auth
+                    @if(Auth::user()->isAdmin())
+                        <li class="list-inline-item">
+                            <a href="/admin/users" style="color: #F6D8AE !important; text-decoration: none;">Users</a>
+                        </li>
+                    @endif
+                @endauth
             </ul>
         </div>
-        <div class="col-md-3">
-            <form class="input-group">
-                <input type="text" class="form-control me-2" placeholder="Search" aria-label="Search"
-                       aria-describedby="button-Search" disabled>
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2"
-                        style="background-color: #91283B; border-color: #91283B; color: #F6D8AE" disabled>Search</button>
-            </form>
-        </div>
-        <div class="col-md-2">
-            <div class="container d-flex justify-content-center">
-                <i class="fas fa-user-circle fa-2x" style="color: #F6D8AE;"></i>
-            </div>
-            <div class="d-flex justify-content-center align-items-center" style="color: #F6D8AE !important;">
-                @auth
-                    {{Auth::user()->name}}
-                    <form class="nav-item" action="{{ route('auth.logout') }}" method="POST">
-                        @method('delete')
-                        @csrf
-                        <input type="submit" value="Logout" class="btn btn-outline-secondarm-3" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE" />
-                    </form>
-                @endauth
-                @guest
-                    <a href="/login" class="btn btn-outline-secondary m-3" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE">Login</a>
-                @endguest
+        <div class="col-md-2 ml-auto">
+            <div class="container">
+                <div class="row text-center">
+                    <i class="fas fa-user-circle fa-2x" style="color: #F6D8AE;"></i>
+                </div>
+                <div class="row" style="color: #F6D8AE !important;">
+                    @auth
+                        <div class="col text-center">{{Auth::user()->username}}</div>
+                    @endauth
+                </div>
+                <div class="row text-center">
+                    @auth
+                        <form class="nav-item" action="{{ route('auth.logout') }}" method="POST">
+                            @method('delete')
+                            @csrf
+                            <input type="submit" value="Logout" class="btn btn-outline-secondarm-3" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE" />
+                        </form>
+                    @endauth
+                    @guest
+                        <a href="/login" class="btn btn-outline-secondary m-3" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE">Login</a>
+                    @endguest
+                </div>
             </div>
         </div>
     </div>
@@ -56,26 +61,6 @@
                      class="img-fluid" style="max-width: 120px; max-height: 120px;"/>
             </a>
         </div>
-        <div class="col-4 col-md-2">
-            <div class="container d-flex justify-content-center align-items-center">
-                <i class="fas fa-user-circle fa-2x" style="color: #F6D8AE;"></i>
-            </div>
-            <p style="color: #F6D8AE !important;">
-                @auth
-                {{Auth::user()->name}}
-                <form class="nav-item" action="{{ route('auth.logout') }}" method="POST">
-                    @method('delete')
-                    @csrf
-                    <input type="submit" value="Logout" class="btn btn-outline-secondary" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE" />
-                </form>
-            @endauth
-            @guest
-                <div class="d-flex justify-content-center">
-                    <a href="/login" class="btn btn-outline-secondary" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE">Login</a>
-                </div>
-            @endguest
-            </p>
-        </div>
     </div>
     <div class="collapse" id="mobileNav">
         <ul class="list-group text-center" style="background-color: #2E4057;">
@@ -86,18 +71,35 @@
                 <a href="/movies" style="display: block; color: #F6D8AE; text-decoration: none;">Movies</a>
             </li>
             <li class="list-group-item" style="background-color: #91283B;">
-                <a href="/show" style="display: block; color: #F6D8AE; text-decoration: none;">Showtimes</a>
+                <a href="/profile" style="display: block; color: #F6D8AE; text-decoration: none;">Profile</a>
             </li>
-            <li class="list-group-item" style="background-color: #91283B;">
-                <a href="/news" style="display: block; color: #F6D8AE; text-decoration: none;">News</a>
-            </li>
+            @auth
+                @if(Auth::user()->isAdmin())
+                    <li class="list-group-item" style="background-color: #91283B;">
+                        <a href="/admin/users" style="display: block; color: #F6D8AE; text-decoration: none;">Users</a>
+                    </li>
+                @endif
+            @endauth
         </ul>
-        <form class="my-4" href="/">
-            <div class="input-group">
-                <input type="text" class="form-control me-2" placeholder="Search" aria-label="Search"
-                       aria-describedby="button-Search"disabled>
-                <button type="submit" class="btn btn-primary" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE" disabled>Search</button>
+        <div class="my-4">
+            <div class="container text-center">
+                @auth
+                    <img src="{{Auth::user()->profile->avatar}}" alt="">
+                @endauth
+                @guest
+                    <i class="fas fa-user-circle fa-2x" style="color: #F6D8AE;"></i>
+                @endguest
             </div>
-        </form>
+            <p style="color: #F6D8AE !important;" class="text-center">
+                @auth
+                    {{Auth::user()->username}}
+                    <form class="nav-item text-center" action="{{ route('auth.logout') }}" method="POST">
+                        @method('delete')
+                        @csrf
+                        <input type="submit" value="Logout" class="btn btn-outline-secondary" style="background-color: #91283B; border-color: #91283B; color: #F6D8AE" />
+                    </form>
+                @endauth
+            </p>
+        </div>
     </div>
 </div>

@@ -33,7 +33,14 @@
                     @enderror
                 </div>
 
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                    <label class="form-check-label" for="remember">Remember me</label>
+                </div>
+
                 <button class="btn btn-primary">Connect</button>
+
+                <a href="{{ route('auth.register') }}" class="btn btn-link">Register</a>
             </form>
         </div>
     </div>

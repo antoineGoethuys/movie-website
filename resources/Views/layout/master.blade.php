@@ -12,14 +12,11 @@
 {{-- Font Awesome CSS --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-{{-- flag-icon-css --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-
 
 
     <title>@yield('title')</title>
 </head>
-<body>
+<body style="background-color: #F6D8AE ">
 
 {{-- header cinema --}}
 @include('partials.header')
@@ -34,10 +31,21 @@
     @endif
     @yield('content')
 </div>
+@guest
+    <i class="fas fa-lock m-3 p-3" style="color: #F6D8AE; position: fixed; bottom: 0; right: 0; border: 2px solid #2E4057; border-radius: 50%; background-color: #91283B;"></i>
+@endguest
+@auth
+    @if(!Auth::user()->IsAdmin())
+        <i class="fas fa-lock m-3 p-3" style="color: #F6D8AE; position: fixed; bottom: 0; right: 0; border: 2px solid #2E4057; border-radius: 50%; background-color: #91283B;"></i>
+    @endif
+    @if (Auth::user()->IsAdmin())
+        <i class="fas fa-lock-open m-3 p-3" style="color: #F6D8AE; position: fixed; bottom: 0; right: 0; border: 2px solid #2E4057; border-radius: 50%; background-color: #91283B;"></i>
 
-    {{-- footer cinema --}}
+    @endif
+@endauth
+
+    {{-- footer --}}
 @include('partials.footer')
-
 <!-- Include Bootstrap JS and jQuery -->
 <!-- Include Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
