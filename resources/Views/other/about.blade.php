@@ -7,7 +7,7 @@
         <h1 class="card-title">About Me</h1>
         <div class="card-body">
             <p class="card-text">I am a student of Applied Informatics at EHB. This project is part of an assignment for a course.</p>
-            <link rel="stylesheet" href="">
+            <a rel="stylesheet" href="https://github.com/antoineGoethuys/movie-website">github</a>
         </div>
     </div>
     <div class="container mt-5 card">
