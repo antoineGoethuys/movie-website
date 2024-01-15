@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\ContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\movieController;
@@ -10,8 +12,7 @@ Route::group([], function(){
     Route::prefix('')
     ->name("other.")
     ->group(function () {
-        Route::get('/contact', function () {
-            return view('other.contact');
+        Route::get('/contact', [ContactController::class, 'submit'])->name('contact');
         })->name('contact');
         Route::get('/faq', function () {
             return view('other.faq');
